@@ -23,15 +23,9 @@ def lexer(s):
         token = match.groups() # p.findall과 비슷
         pos = match.end()
         for k in range(len(token)):
+            if k == 9:
+                match = p.match(s, pos)
+                break
             if token[k]:
                 yield (tokenSplit[k][0], token[k])
                 match = p.match(s, pos)
-        
-string = '''
-for i in range():
-    print([i+5], 'dff_01', "dddd")
-'''
-
-for le in lexer(string):
-    print(le)
-
