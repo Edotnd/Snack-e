@@ -4,11 +4,12 @@ tokenSplit = [
     ('KEYWORD', '|'.join(keyword.kwlist)),
     ('ID', r'[a-zA-Z_]\w*'),
     ('NUM', r'\d+|\d+\.\d*|\.\d+'),
-    ('LPAREN', r'\('),
-    ('RPAREN', r'\)'),
-    ('PLUS', r'\+'), ('MINUS', r'\-'), ('MUL', r'\*'),  ('DIV', r'\/'),
+    ('OP', r'[+\-*/[\],]'),
     ('COLON', r':'),
-    ('WHITESPACE', r'\s+')
+    ('LPAR', r'\('), ('RPAR', r'\)'),
+    ('STRING', r'\'.*\'|\".*\"'),
+    ('NEWLINE', r'\n'),
+    ('SPACE', r'\s+')
 ]
 
 tokenData = '|'.join([f'({tokenD[1]})' for tokenD in tokenSplit])
@@ -28,7 +29,7 @@ def lexer(s):
         
 string = '''
 for i in range():
-    print(i+5)
+    print([i+5], 'dff_01', "dddd")
 '''
 
 for le in lexer(string):
