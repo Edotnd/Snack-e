@@ -12,19 +12,25 @@ tokenSplit = [
 ]
 
 tokenData = '|'.join([f'({tokenD[1]})' for tokenD in tokenSplit])
-print(tokenData)
+# print(tokenData)
 p = re.compile(tokenData)
 
-def lex(str):
-    f = p.findall(str)
-    for token in f:
-        for i in range(len(token)):
-            if token[i]:
-                print((tokenSplit[i][0], token[i]))
-
+def lexer(s):
+    pos = 0
+    match = p.match(s, pos)
+    while match:
+        token = match.groups() # p.findall과 비슷
+        pos = match.end()
+        for k in range(len(token)):
+            if token[k]:
+                yield (tokenSplit[k][0], token[k])
+                match = p.match(s, pos)
+        
 string = '''
 for i in range():
-    printn(i+5)
+    print(i+5)
 '''
 
-lex(string)
+for le in lexer(string):
+    print(le)
+
